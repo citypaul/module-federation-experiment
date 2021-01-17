@@ -2,6 +2,7 @@
   "name": "marketing",
   "version": "1.0.0",
   "scripts": {
+    "build": "webpack --config config/webpack.prod.js",
     "start": "webpack serve --config config/webpack.dev.js"
   },
   "dependencies": {
