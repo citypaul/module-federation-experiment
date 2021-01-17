@@ -23,5 +23,5 @@ const devConfig = {
     }),
   ],
 };
-
+// add a comment to trigger first gh action
 module.exports = merge(commonConfig, devConfig);
