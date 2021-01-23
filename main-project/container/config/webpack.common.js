@@ -22,3 +22,4 @@ module.exports = {
     }),
   ],
 };
+// add comment to trigger ci run
