@@ -5,11 +5,11 @@ on:
     branches:
       - master
     paths:
-      - "main-project/container/**"
+      - "container/**"
 
 defaults:
   run:
-    working-directory: main-project/container
+    working-directory: container
 
 jobs:
   build:
