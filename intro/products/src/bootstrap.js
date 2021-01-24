@@ -15,7 +15,6 @@ if (process.env.NODE_ENV === "development") {
   const el = document.querySelector("#dev-products");
 
   if (el) {
-    console.log("yes", el);
     mount(el);
   }
 }
