@@ -4,6 +4,10 @@ This is an experiment in using [module federation](https://webpack.js.org/concep
 
 Module federation is enabled in Webpack 5, and allows for webpack to dynamically pull in remote modules at run time. This makes it possible to share code from one application to another. It also handles shared dependencies between applications for you.
 
+The applications all auto deploy to AWS using Github Actions.
+
+Currently, the cloudfronted URL is here: [https://dr9vi75a1y94g.cloudfront.net](https://dr9vi75a1y94g.cloudfront.net).
+
 Some of the goals here:
 
 - Each app needs to be able to run independently during development
