@@ -32,3 +32,4 @@ const devConfig = {
 };
 
 module.exports = merge(commonConfig, devConfig);
+// add comment to kick off build
