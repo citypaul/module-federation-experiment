@@ -14,7 +14,7 @@ Some of the goals here:
 
 - Each app should be independently deployable through its own pipeline
 
-- There should be little to no shared state between applications. Module federation makes this possible, but I wanted each app to be completely independent and to manage its own state
+- There should be little to no shared state between applications. Module federation makes shared state between apps possible, but I wanted each app to be completely independent and to manage its own state
 
 - Each application should be able to handle it's own routing requirements, and should have some channel to communicate route changes to the container app (and this should be the only app to app communication, and should be limited by a simple API that is agnostic to any specific client side routing technology)
 
