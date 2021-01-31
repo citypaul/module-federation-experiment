@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core/styles";
 import Progress from "./components/Progress";
 
+const DashboardLazy = lazy(() => import("./components/DashboardApp"));
 const MarketingLazy = lazy(() => import("./components/MarketingApp"));
 const AuthLazy = lazy(() => import("./components/AuthApp"));
 
@@ -30,10 +31,14 @@ export default () => {
       <BrowserRouter>
         <div>
           <Header signedIn={isSignedIn} onSignOut={onSignOut} />
+
           <Suspense fallback={<Progress />}>
             <Switch>
               <Route path="/auth">
                 <AuthLazy onSignIn={onSignIn} />
+              </Route>
+              <Route path="/dashboard">
+                <DashboardLazy />
               </Route>
               <Route path="/" component={MarketingLazy} />
             </Switch>
