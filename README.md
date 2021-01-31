@@ -20,12 +20,16 @@ Some of the goals here:
 
 - The container application should fetch child applications dynamically at run time, so a release to a child application should be instantly reflected by a page refresh in the container application
 
+- Consideration should be made for authentication and how that might work. Therefore, the `/dashboard` application is a protected route that requires a login
+
+I also experimented in bringing a Vue application into the React shell. While I don't think this is really a good idea in practice, it's fun to see this working on a technical level to understand what is possible. The `/dashboard` application is a Vue application. This application is also on a protected route, which requires a signed in user. The flow for this is simulated via the `/auth` app, which calls an `onSignIn` callback passed down by the container.
+
 The code in this repo is a monorepo setup, where each sub folder represents a running application. They are:
 
 - `/container`: The overall container application that pulls the other apps through at run time
 - `/marketing`: A static site that contains marketing and product information. It has its own routes that need to work both during development and also when running throught the container
-- `/auth`: A mini application that would handle the user signing in or registering. It also controls its own routes that need to sync with the container. Currently this isn't functional (in that you can't actually register or sign in), but it does run in isolation and syncs with the container as expected
-- `/dashboard`: Just a place holder at the moment, currently doesn't do anything.
+- `/auth`: A mini application that would handle the user signing in or registering. It also controls its own routes that need to sync with the container. This works by triggering an `onSignIn` callback passed down by the container. This is just a boolean in this example, but it could quite easily pass a user object around the sub applications instead.
+- `/dashboard`: Vue Application, can only be reached when a user signs in.
 
 ## Installation
 
@@ -52,6 +56,19 @@ yarn start
 ```
 
 The app will be available locally on [http://localhost:8082/](http://localhost:8082/).
+
+### Dashboard App
+
+From inside the `/dashboard` folder:
+
+```sh
+yarn install
+yarn start
+```
+
+The dashboard app is a Vue application.
+
+The app will be available locally on [http://localhost:8083/](http://localhost:8083/).
 
 ### Container App
 
