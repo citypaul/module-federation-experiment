@@ -28,7 +28,7 @@ The code in this repo is a monorepo setup, where each sub folder represents a ru
 
 - `/container`: The overall container application that pulls the other apps through at run time
 - `/marketing`: A static site that contains marketing and product information. It has its own routes that need to work both during development and also when running throught the container
-- `/auth`: A mini application that would handle the user signing in or registering. It also controls its own routes that need to sync with the container. This works by triggering an `onSignIn` callback passed down by the container. This is just a boolean in this example, but it could quite easily pass a user object around the sub applications instead.
+- `/auth`: A mini application that would handle the user signing in or registering. It also controls its own routes that need to sync with the container. The sign in logic works by triggering an `onSignIn` callback passed down by the container. This is just a boolean in this example, but it could quite easily pass a user object around the sub applications instead.
 - `/dashboard`: Vue Application, can only be reached when a user signs in.
 
 ## Installation
