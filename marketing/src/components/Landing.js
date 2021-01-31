@@ -90,6 +90,15 @@ export default function Album() {
               The text rendered here is rendered in a completely different
               application to the navigation component above.
             </Typography>
+            <Typography
+              variant="h5"
+              align="center"
+              color="textSecondary"
+              paragraph
+            >
+              There's a simulated authenticated dashboard page you can reach by
+              clicking login above and clicking the sign in button.
+            </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
