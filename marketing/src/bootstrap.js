@@ -2,6 +2,22 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createMemoryHistory, createBrowserHistory } from "history";
 import App from "./App";
+import { getPosts, createPost } from "../../shared-lib/getPosts";
+
+const bc = new BroadcastChannel("test_channel");
+
+const doGetPosts = async () => {
+  return await getPosts();
+};
+
+// doGetPosts();
+
+const doCreatePost = async () => {
+  // await createPost();
+  bc.postMessage("updated post");
+};
+
+// doCreatePost();
 
 const mount = (el, { onNavigate, defaultHistory, initialPath } = {}) => {
   const history =

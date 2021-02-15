@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
+import { getPosts } from "../../../shared-lib/getPosts";
 
 const useStyles = makeStyles((theme) => ({
   "@global": {
@@ -56,6 +57,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header({ signedIn, onSignOut }) {
   const classes = useStyles();
+  const [posts, setPosts] = useState([]);
+
+  React.useEffect(() => {
+    const get = async () => {
+      const posts = await getPosts();
+      console.log("setting:", posts);
+      setPosts(posts);
+    };
+
+    get();
+  }, [getPosts]);
 
   const onClick = () => {
     if (signedIn && onSignOut) {
@@ -79,7 +91,10 @@ export default function Header({ signedIn, onSignOut }) {
             component={RouterLink}
             to="/"
           >
-            App
+            App:{" "}
+            {posts.map(({ author, title }) => (
+              <p>{author}</p>
+            ))}
           </Typography>
           <Button
             color="primary"
