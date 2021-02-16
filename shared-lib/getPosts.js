@@ -7,8 +7,6 @@ const keys = {
   allPosts: "allPosts",
 };
 
-const event = new Event("getPosts");
-
 const createBroadcastChannelData = ({ key }) => ({ key });
 
 export const getPosts = ({ onGlobalUpdate } = {}) => {
@@ -44,13 +42,7 @@ export const createPost = ({ author, title }) => {
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify({ title, author }), // body data type must match "Content-Type" header
   }).then((res) => {
-    console.log("broadcasting!");
-
-    bc.postMessage(createBroadcastChannelData({ key: keys.allPosts })).then(
-      (res) => {
-        window.postMessage();
-      }
-    );
+    bc.postMessage(createBroadcastChannelData({ key: keys.allPosts }));
 
     return res;
   });
