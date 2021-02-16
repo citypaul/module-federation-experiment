@@ -58,24 +58,25 @@ const useStyles = makeStyles((theme) => ({
 export default function Header({ signedIn, onSignOut }) {
   const classes = useStyles();
   const [posts, setPosts] = useState([]);
-  const [updated, setUpdated] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
   const postsUpdatedCallback = () => {
-    setUpdated(true);
+    setIsUpdating(true);
   };
 
-  const { fetchPosts } = React.useMemo(() => getPosts(postsUpdatedCallback), [
-    getPosts,
-  ]);
+  const { fetchPosts } = getPosts(postsUpdatedCallback);
 
   React.useEffect(() => {
     const get = async () => {
-      const res = await fetchPosts();
-      setUpdated(false);
-      setPosts(res);
+      if (!isUpdating) {
+        const res = await fetchPosts();
+        setPosts(res);
+      }
+
+      setIsUpdating(false);
     };
 
     get();
-  }, [fetchPosts, updated]);
+  }, [isUpdating]);
 
   const onClick = () => {
     if (signedIn && onSignOut) {

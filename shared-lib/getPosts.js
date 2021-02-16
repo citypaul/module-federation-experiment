@@ -14,6 +14,7 @@ export const getPosts = (onUpdateCallback) => {
   };
 
   const fetchPosts = () => {
+    console.log("fetching!");
     return fetch("http://localhost:3000/posts").then((response) =>
       response.json()
     );
