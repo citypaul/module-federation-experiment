@@ -1,5 +1,36 @@
 {
-  "posts": [],
+  "posts": [
+    {
+      "title": "Future Brand Designer",
+      "author": "Arlene",
+      "id": 1
+    },
+    {
+      "title": "Direct Tactics Coordinator",
+      "author": "Cooper",
+      "id": 2
+    },
+    {
+      "title": "Dynamic Operations Designer",
+      "author": "Bart",
+      "id": 3
+    },
+    {
+      "title": "Corporate Optimization Facilitator",
+      "author": "Doug",
+      "id": 4
+    },
+    {
+      "title": "Central Intranet Executive",
+      "author": "Victoria",
+      "id": 5
+    },
+    {
+      "title": "Product Web Manager",
+      "author": "Elliot",
+      "id": 6
+    }
+  ],
   "comments": [
     {
       "id": 1,
