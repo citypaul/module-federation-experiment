@@ -1,15 +1,25 @@
 const bc = new BroadcastChannel("test_channel");
 
-export const getPosts = (onUpdateCallback) => {
-  const fetchPosts = () =>
-    fetch("http://localhost:3000/posts").then((response) => response.json());
+const keys = {
+  allPosts: "allPosts",
+};
 
-  bc.onmessage = (ev) => {
-    fetchPosts();
+const createBroadcastChannelData = ({ key }) => ({ key });
+
+export const getPosts = (onUpdateCallback) => {
+  bc.onmessage = ({ data }) => {
+    if (data.key === keys.allPosts) {
+      onUpdateCallback();
+    }
+  };
+
+  const fetchPosts = () => {
+    return fetch("http://localhost:3000/posts").then((response) =>
+      response.json()
+    );
   };
 
   return {
-    onPostsUpdate: () => {},
     fetchPosts,
   };
 };
@@ -29,8 +39,7 @@ export const createPost = ({ author, title }) => {
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify({ title, author }), // body data type must match "Content-Type" header
   }).then((res) => {
-    console.log("did create post!");
-    bc.postMessage({ author, title });
+    bc.postMessage(createBroadcastChannelData({ key: keys.allPosts }));
     return res;
   });
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -58,17 +58,24 @@ const useStyles = makeStyles((theme) => ({
 export default function Header({ signedIn, onSignOut }) {
   const classes = useStyles();
   const [posts, setPosts] = useState([]);
-  const { fetchPosts } = getPosts();
+  const [updated, setUpdated] = useState(false);
+  const postsUpdatedCallback = () => {
+    setUpdated(true);
+  };
+
+  const { fetchPosts } = React.useMemo(() => getPosts(postsUpdatedCallback), [
+    getPosts,
+  ]);
 
   React.useEffect(() => {
     const get = async () => {
-      const posts = await fetchPosts();
-      console.log("setting:", posts);
-      setPosts(posts);
+      const res = await fetchPosts();
+      setUpdated(false);
+      setPosts(res);
     };
 
     get();
-  }, [fetchPosts, getPosts]);
+  }, [fetchPosts, updated]);
 
   const onClick = () => {
     if (signedIn && onSignOut) {
