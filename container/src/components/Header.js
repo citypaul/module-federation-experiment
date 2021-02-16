@@ -58,16 +58,17 @@ const useStyles = makeStyles((theme) => ({
 export default function Header({ signedIn, onSignOut }) {
   const classes = useStyles();
   const [posts, setPosts] = useState([]);
+  const { fetchPosts } = getPosts();
 
   React.useEffect(() => {
     const get = async () => {
-      const posts = await getPosts();
+      const posts = await fetchPosts();
       console.log("setting:", posts);
       setPosts(posts);
     };
 
     get();
-  }, [getPosts]);
+  }, [fetchPosts, getPosts]);
 
   const onClick = () => {
     if (signedIn && onSignOut) {
@@ -93,7 +94,9 @@ export default function Header({ signedIn, onSignOut }) {
           >
             App:{" "}
             {posts.map(({ author, title }) => (
-              <p>{author}</p>
+              <p>
+                {author} - {title}
+              </p>
             ))}
           </Typography>
           <Button

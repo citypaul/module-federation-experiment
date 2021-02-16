@@ -1,10 +1,20 @@
-export const getPosts = () => {
-  return fetch("http://localhost:3000/posts").then((response) =>
-    response.json()
-  );
+const bc = new BroadcastChannel("test_channel");
+
+export const getPosts = (onUpdateCallback) => {
+  const fetchPosts = () =>
+    fetch("http://localhost:3000/posts").then((response) => response.json());
+
+  bc.onmessage = (ev) => {
+    fetchPosts();
+  };
+
+  return {
+    onPostsUpdate: () => {},
+    fetchPosts,
+  };
 };
 
-export const createPost = () => {
+export const createPost = ({ author, title }) => {
   // Default options are marked with *
   return fetch("http://localhost:3000/posts", {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -17,6 +27,10 @@ export const createPost = () => {
     },
     redirect: "follow", // manual, *follow, error
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: JSON.stringify({ title: "new-post", author: "some author" }), // body data type must match "Content-Type" header
+    body: JSON.stringify({ title, author }), // body data type must match "Content-Type" header
+  }).then((res) => {
+    console.log("did create post!");
+    bc.postMessage({ author, title });
+    return res;
   });
 };
