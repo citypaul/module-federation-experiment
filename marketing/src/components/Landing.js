@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -10,8 +10,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import MaterialLink from "@material-ui/core/Link";
 import { Link } from "react-router-dom";
-import { createPost } from "../../../shared-lib/getPosts";
+import { createPost, getPosts } from "../../../shared-lib/getPosts";
 import { name } from "faker";
+import { DisplayPosts } from "./DisplayPosts";
 
 function Copyright() {
   return (
@@ -65,21 +66,44 @@ const useStyles = makeStyles((theme) => ({
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-export const CreatePost = () => {
-  const handleOnClick = async () => {
-    await createPost({ author: name.firstName(), title: name.title() });
-  };
-
-  return <button onClick={handleOnClick}>Create post</button>;
-};
-
 export default function Album() {
   const classes = useStyles();
+  const [posts, setPosts] = useState([]);
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  const { fetchPosts } = getPosts({
+    onGlobalUpdate: () => {
+      setIsUpdating(true);
+    },
+  });
+
+  React.useEffect(() => {
+    const get = async () => {
+      if (!isUpdating) {
+        const res = await fetchPosts();
+        setPosts(res);
+      }
+
+      setIsUpdating(false);
+    };
+
+    get();
+  }, [isUpdating]);
+
+  const CreatePost = () => {
+    const handleOnClick = async () => {
+      await createPost({ author: name.firstName(), title: name.title() });
+      setIsUpdating(true);
+    };
+
+    return <button onClick={handleOnClick}>Create post</button>;
+  };
 
   return (
     <React.Fragment>
       <main>
         <CreatePost />
+        <DisplayPosts posts={posts} />
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">

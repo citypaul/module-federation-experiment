@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink } from "react-router-dom";
-import { getPosts } from "../../../shared-lib/getPosts";
+import { DisplayPosts } from "./DisplayPosts";
 
 const useStyles = makeStyles((theme) => ({
   "@global": {
@@ -57,25 +57,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header({ signedIn, onSignOut }) {
   const classes = useStyles();
-  const [posts, setPosts] = useState([]);
-  const [isUpdating, setIsUpdating] = useState(false);
-
-  const { fetchPosts } = getPosts(() => {
-    setIsUpdating(true);
-  });
-
-  React.useEffect(() => {
-    const get = async () => {
-      if (!isUpdating) {
-        const res = await fetchPosts();
-        setPosts(res);
-      }
-
-      setIsUpdating(false);
-    };
-
-    get();
-  }, [isUpdating]);
 
   const onClick = () => {
     if (signedIn && onSignOut) {
@@ -99,13 +80,10 @@ export default function Header({ signedIn, onSignOut }) {
             component={RouterLink}
             to="/"
           >
-            App:{" "}
-            {posts.map(({ author, title }) => (
-              <p>
-                {author} - {title}
-              </p>
-            ))}
+            App
+            <DisplayPosts />
           </Typography>
+
           <Button
             color="primary"
             variant="outlined"

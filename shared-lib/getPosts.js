@@ -1,21 +1,24 @@
 import { BroadcastChannel } from "broadcast-channel";
-const bc = new BroadcastChannel("test_channel");
+const bc = new BroadcastChannel("test_channel", {
+  webWorkerSupport: false,
+});
 
 const keys = {
   allPosts: "allPosts",
 };
 
+const event = new Event("getPosts");
+
 const createBroadcastChannelData = ({ key }) => ({ key });
 
-export const getPosts = (onUpdateCallback) => {
+export const getPosts = ({ onGlobalUpdate } = {}) => {
   bc.onmessage = (data) => {
     if (data.key === keys.allPosts) {
-      onUpdateCallback();
+      onGlobalUpdate();
     }
   };
 
   const fetchPosts = () => {
-    console.log("fetching!");
     return fetch("http://localhost:3000/posts").then((response) =>
       response.json()
     );
@@ -41,7 +44,14 @@ export const createPost = ({ author, title }) => {
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify({ title, author }), // body data type must match "Content-Type" header
   }).then((res) => {
-    bc.postMessage(createBroadcastChannelData({ key: keys.allPosts }));
+    console.log("broadcasting!");
+
+    bc.postMessage(createBroadcastChannelData({ key: keys.allPosts })).then(
+      (res) => {
+        window.postMessage();
+      }
+    );
+
     return res;
   });
 };
