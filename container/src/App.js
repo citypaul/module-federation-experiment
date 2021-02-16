@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core/styles";
 import Progress from "./components/Progress";
 import { createBrowserHistory } from "history";
+import ReduxApp from "./components/ReduxApp";
 
 const DashboardLazy = lazy(() => import("./components/DashboardApp"));
 const MarketingLazy = lazy(() => import("./components/MarketingApp"));
@@ -50,7 +51,10 @@ export default () => {
                 {!isSignedIn && <Redirect to="/" />}
                 <DashboardLazy />
               </Route>
-              <Route path="/" component={MarketingLazy} />
+              <Route path="/">
+                <ReduxApp />
+                <MarketingLazy />
+              </Route>
             </Switch>
           </Suspense>
         </div>
