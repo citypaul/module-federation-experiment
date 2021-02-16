@@ -1,3 +1,4 @@
+import { BroadcastChannel } from "broadcast-channel";
 const bc = new BroadcastChannel("test_channel");
 
 const keys = {
@@ -7,7 +8,7 @@ const keys = {
 const createBroadcastChannelData = ({ key }) => ({ key });
 
 export const getPosts = (onUpdateCallback) => {
-  bc.onmessage = ({ data }) => {
+  bc.onmessage = (data) => {
     if (data.key === keys.allPosts) {
       onUpdateCallback();
     }

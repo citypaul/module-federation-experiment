@@ -59,11 +59,10 @@ export default function Header({ signedIn, onSignOut }) {
   const classes = useStyles();
   const [posts, setPosts] = useState([]);
   const [isUpdating, setIsUpdating] = useState(false);
-  const postsUpdatedCallback = () => {
-    setIsUpdating(true);
-  };
 
-  const { fetchPosts } = getPosts(postsUpdatedCallback);
+  const { fetchPosts } = getPosts(() => {
+    setIsUpdating(true);
+  });
 
   React.useEffect(() => {
     const get = async () => {
