@@ -52,7 +52,7 @@ export default () => {
                 <DashboardLazy />
               </Route>
               <Route path="/">
-                {/* <ReduxApp /> */}
+                <ReduxApp />
                 <MarketingLazy />
               </Route>
             </Switch>
