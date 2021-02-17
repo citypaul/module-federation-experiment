@@ -1,5 +1,41 @@
 {
-  "posts": [],
+  "posts": [
+    {
+      "title": "Senior Factors Architect",
+      "author": "Eleazar",
+      "id": 1
+    },
+    {
+      "title": "Human Web Director",
+      "author": "Brock",
+      "id": 2
+    },
+    {
+      "title": "Legacy Web Administrator",
+      "author": "Garrick",
+      "id": 3
+    },
+    {
+      "title": "Internal Functionality Analyst",
+      "author": "Ozella",
+      "id": 4
+    },
+    {
+      "title": "Principal Solutions Engineer",
+      "author": "Vita",
+      "id": 5
+    },
+    {
+      "title": "Direct Division Facilitator",
+      "author": "Efren",
+      "id": 6
+    },
+    {
+      "title": "Central Configuration Designer",
+      "author": "Bernice",
+      "id": 7
+    }
+  ],
   "comments": [
     {
       "id": 1,
