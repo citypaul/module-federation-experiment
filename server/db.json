@@ -1,26 +1,5 @@
 {
-  "posts": [
-    {
-      "title": "International Assurance Developer",
-      "author": "Cassandra",
-      "id": 1
-    },
-    {
-      "title": "International Accounts Designer",
-      "author": "Eleanore",
-      "id": 2
-    },
-    {
-      "title": "Product Intranet Producer",
-      "author": "Astrid",
-      "id": 3
-    },
-    {
-      "title": "Central Tactics Officer",
-      "author": "Lilian",
-      "id": 4
-    }
-  ],
+  "posts": [],
   "comments": [
     {
       "id": 1,

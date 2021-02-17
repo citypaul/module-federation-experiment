@@ -1,9 +1,17 @@
-import { put, takeEvery, all } from "redux-saga/effects";
+import { put, takeEvery, all, call } from "redux-saga/effects";
+import { getPosts, createPost } from "../../shared-lib/getPosts";
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 function* helloSaga() {
-  console.log("Hello Sagas!");
+  const { fetchPosts } = getPosts({
+    onGlobalUpdate: () => {
+      console.log("on global update inside redux saga");
+    },
+  });
+
+  const result = yield call(fetchPosts);
+  console.log("result of api call inside saga: ", result);
 }
 
 function* incrementAsync() {
