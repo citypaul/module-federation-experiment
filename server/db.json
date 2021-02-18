@@ -1,5 +1,26 @@
 {
-  "posts": [],
+  "posts": [
+    {
+      "title": "Chief Accounts Associate",
+      "author": "Ezekiel",
+      "id": 1
+    },
+    {
+      "title": "Central Directives Executive",
+      "author": "Leora",
+      "id": 2
+    },
+    {
+      "author": "Dillon",
+      "title": "Senior Creative Assistant",
+      "id": 3
+    },
+    {
+      "author": "Joe",
+      "title": "National Communications Architect",
+      "id": 4
+    }
+  ],
   "comments": [
     {
       "id": 1,

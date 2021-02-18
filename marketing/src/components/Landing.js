@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { createPost, getPosts } from "../../../shared-lib/getPosts";
 import { name } from "faker";
 import { DisplayPosts } from "./DisplayPosts";
+import { hopinHttp } from "../../../shared-lib/axios";
 
 function Copyright() {
   return (
@@ -68,8 +69,9 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function Album() {
   const classes = useStyles();
-  const [posts, setPosts] = useState([]);
+  // const [posts, setPosts] = useState([]);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [httpLibPosts, setHttpLibPosts] = useState([]);
 
   const { fetchPosts } = getPosts({
     onGlobalUpdate: () => {
@@ -77,23 +79,39 @@ export default function Album() {
     },
   });
 
-  React.useEffect(() => {
-    const get = async () => {
-      if (!isUpdating) {
-        const res = await fetchPosts();
-        setPosts(res);
-      }
+  // React.useEffect(() => {
+  //   const get = async () => {
+  //     if (!isUpdating) {
+  //       const res = await fetchPosts();
+  //       setPosts(res);
+  //     }
 
-      setIsUpdating(false);
+  //     setIsUpdating(false);
+  //   };
+
+  //   get();
+  // }, [isUpdating]);
+
+  useEffect(() => {
+    const run = async () => {
+      if (!isUpdating) {
+        const result = await hopinHttp.get("http://localhost:3000/posts");
+
+        setHttpLibPosts(result.data);
+      }
     };
 
-    get();
+    run();
   }, [isUpdating]);
 
   const CreatePost = () => {
     const handleOnClick = async () => {
-      await createPost({ author: name.firstName(), title: name.title() });
-      setIsUpdating(true);
+      await hopinHttp.post("http://localhost:3000/posts", {
+        author: name.firstName(),
+        title: name.title(),
+      });
+      // await createPost({ author: name.firstName(), title: name.title() });
+      // setIsUpdating(true);
     };
 
     return <button onClick={handleOnClick}>Create post</button>;
@@ -103,7 +121,8 @@ export default function Album() {
     <React.Fragment>
       <main>
         <CreatePost />
-        <DisplayPosts posts={posts} />
+        {/* <DisplayPosts posts={posts} header="From api function" /> */}
+        <DisplayPosts posts={httpLibPosts} header="From http lib" />
         {/* Hero unit */}
         <div className={classes.heroContent}>
           <Container maxWidth="sm">
