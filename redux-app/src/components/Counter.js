@@ -8,12 +8,7 @@ const mapStateToProps = (state /*, ownProps*/) => {
 };
 
 const Counter = ({ value, onIncrement, onDecrement, onIncrementAsync }) => (
-  <div>
-    <button onClick={onIncrementAsync}>Increment after 1 second</button>{" "}
-    <button onClick={onIncrement}>Increment</button>{" "}
-    <button onClick={onDecrement}>Decrement</button>
-    <div>Clicked: {value} times</div>
-  </div>
+  <p>Redux app..</p>
 );
 
 export default connect(mapStateToProps)(Counter);
