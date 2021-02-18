@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "broadcast-channel": "^3.4.1"
+    "broadcast-channel": "^3.4.1",
+    "broadcastchannel-polyfill": "^1.0.1"
   }
 }

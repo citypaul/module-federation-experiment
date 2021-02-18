@@ -40,6 +40,11 @@ broadcast-channel@^3.4.1:
     rimraf "3.0.2"
     unload "2.2.0"
 
+broadcastchannel-polyfill@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/broadcastchannel-polyfill/-/broadcastchannel-polyfill-1.0.1.tgz#7596b3d78526b3919e76562aff00cd1278a205ea"
+  integrity sha512-iooPAN913j4xfrIu5o+mDaks9UUDOBfgjn8SsuzysfXr/X+f8m9y5t8c5rAbW6P0LdUXBJx33zwN4Cs6b9BGRw==
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"

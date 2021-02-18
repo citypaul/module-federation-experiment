@@ -1,7 +1,6 @@
-import { BroadcastChannel } from "broadcast-channel";
-const bc = new BroadcastChannel("test_channel", {
-  webWorkerSupport: false,
-});
+import "broadcastchannel-polyfill";
+
+const bc = new BroadcastChannel("test_channel");
 
 const keys = {
   allPosts: "allPosts",
@@ -10,7 +9,8 @@ const keys = {
 const createBroadcastChannelData = ({ key }) => ({ key });
 
 export const getPosts = ({ onGlobalUpdate } = {}) => {
-  bc.onmessage = (data) => {
+  bc.onmessage = ({ data }) => {
+    console.log(data);
     if (data.key === keys.allPosts) {
       onGlobalUpdate();
     }
