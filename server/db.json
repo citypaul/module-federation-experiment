@@ -1,26 +1,5 @@
 {
-  "posts": [
-    {
-      "title": "International Response Technician",
-      "author": "Aimee",
-      "id": 1
-    },
-    {
-      "title": "Product Optimization Architect",
-      "author": "Loraine",
-      "id": 2
-    },
-    {
-      "title": "Global Infrastructure Agent",
-      "author": "Gus",
-      "id": 3
-    },
-    {
-      "title": "Direct Web Engineer",
-      "author": "Donna",
-      "id": 4
-    }
-  ],
+  "posts": [],
   "comments": [
     {
       "id": 1,
