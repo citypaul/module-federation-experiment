@@ -112,7 +112,7 @@ export default function Album() {
           });
 
         const result2 = await hopinHttp
-          .get("http://localhost:3000/posts")
+          .get("http://localhost:3000/posts?test=hello")
           .then(async (response) => {
             // Do something fantastic with response.data \o/
             console.log("Request response:", response);
@@ -127,7 +127,7 @@ export default function Album() {
           });
 
         const result3 = await hopinHttp
-          .get("http://localhost:3000/posts")
+          .get("http://localhost:3000/posts?test=hello2")
           .then(async (response) => {
             // Do something fantastic with response.data \o/
             console.log("Request response:", response);
