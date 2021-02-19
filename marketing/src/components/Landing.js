@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { createPost, getPosts } from "../../../shared-lib/getPosts";
 import { name } from "faker";
 import { DisplayPosts } from "./DisplayPosts";
-import { hopinHttp } from "../../../shared-lib/axios";
+import { initHopinHttp, cache } from "../../../shared-lib/axios";
 
 function Copyright() {
   return (
@@ -72,12 +72,13 @@ export default function Album() {
   // const [posts, setPosts] = useState([]);
   const [isUpdating, setIsUpdating] = useState(false);
   const [httpLibPosts, setHttpLibPosts] = useState([]);
+  const { hopinHttp } = initHopinHttp();
 
-  const { fetchPosts } = getPosts({
-    onGlobalUpdate: () => {
-      setIsUpdating(true);
-    },
-  });
+  // const { fetchPosts } = getPosts({
+  //   onGlobalUpdate: () => {
+  //     setIsUpdating(true);
+  //   },
+  // });
 
   // React.useEffect(() => {
   //   const get = async () => {
@@ -95,7 +96,50 @@ export default function Album() {
   useEffect(() => {
     const run = async () => {
       if (!isUpdating) {
-        const result = await hopinHttp.get("http://localhost:3000/posts");
+        const result = await hopinHttp
+          .get("http://localhost:3000/posts")
+          .then(async (response) => {
+            // Do something fantastic with response.data \o/
+            console.log("Request response:", response);
+
+            // Interacting with the store, see `localForage` API.
+            const length = await cache.store.length();
+
+            console.log(cache.store);
+
+            console.log("Cache store length:", length);
+            return response;
+          });
+
+        const result2 = await hopinHttp
+          .get("http://localhost:3000/posts")
+          .then(async (response) => {
+            // Do something fantastic with response.data \o/
+            console.log("Request response:", response);
+
+            // Interacting with the store, see `localForage` API.
+            const length = await cache.store.length();
+
+            console.log(cache.store);
+
+            console.log("Cache store length:", length);
+            return response;
+          });
+
+        const result3 = await hopinHttp
+          .get("http://localhost:3000/posts")
+          .then(async (response) => {
+            // Do something fantastic with response.data \o/
+            console.log("Request response:", response);
+
+            // Interacting with the store, see `localForage` API.
+            const length = await cache.store.length();
+
+            console.log(cache.store);
+
+            console.log("Cache store length:", length);
+            return response;
+          });
 
         setHttpLibPosts(result.data);
       }

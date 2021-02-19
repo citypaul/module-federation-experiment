@@ -9,6 +9,7 @@ const keys = {
 const createBroadcastChannelData = ({ key }) => ({ key });
 
 export const getPosts = ({ onGlobalUpdate } = {}) => {
+  console.log("hello");
   bc.onmessage = ({ data }) => {
     console.log(data);
     if (data.key === keys.allPosts) {

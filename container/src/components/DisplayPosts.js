@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { getPosts } from "../../../shared-lib/getPosts";
-import { hopinHttp } from "../../../shared-lib/axios";
+import { initHopinHttp } from "../../../shared-lib/axios";
 
 export const DisplayPosts = () => {
   const [httpLibPosts, setHttpLibPosts] = useState([]);
+  const { hopinHttp } = initHopinHttp({
+    method: "get",
+    url: "http://localhost:3000/posts",
+  });
 
   useEffect(() => {
     const run = async () => {
