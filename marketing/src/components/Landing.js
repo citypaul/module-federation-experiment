@@ -14,6 +14,7 @@ import { createPost, getPosts } from "../../../shared-lib/getPosts";
 import { name } from "faker";
 import { DisplayPosts } from "./DisplayPosts";
 import { initHopinHttp, cache } from "../../../shared-lib/axios";
+import { httpClient } from "../../../shared-lib/dist/index";
 
 function Copyright() {
   return (
@@ -96,7 +97,22 @@ export default function Album() {
   useEffect(() => {
     const run = async () => {
       if (!isUpdating) {
-        const result = await hopinHttp
+        const result = await httpClient
+          .get("http://localhost:3000/posts")
+          .then(async (response) => {
+            // Do something fantastic with response.data \o/
+            console.log("Request response xx:", response);
+
+            // Interacting with the store, see `localForage` API.
+            const length = await cache.store.length();
+
+            console.log(cache.store);
+
+            console.log("Cache store length:", length);
+            return response;
+          });
+
+        const result2 = await httpClient
           .get("http://localhost:3000/posts")
           .then(async (response) => {
             // Do something fantastic with response.data \o/
@@ -111,23 +127,8 @@ export default function Album() {
             return response;
           });
 
-        const result2 = await hopinHttp
-          .get("http://localhost:3000/posts?test=hello")
-          .then(async (response) => {
-            // Do something fantastic with response.data \o/
-            console.log("Request response:", response);
-
-            // Interacting with the store, see `localForage` API.
-            const length = await cache.store.length();
-
-            console.log(cache.store);
-
-            console.log("Cache store length:", length);
-            return response;
-          });
-
-        const result3 = await hopinHttp
-          .get("http://localhost:3000/posts?test=hello2")
+        const result3 = await httpClient
+          .get("http://localhost:3000/posts")
           .then(async (response) => {
             // Do something fantastic with response.data \o/
             console.log("Request response:", response);
@@ -150,7 +151,7 @@ export default function Album() {
 
   const CreatePost = () => {
     const handleOnClick = async () => {
-      await hopinHttp.post("http://localhost:3000/posts", {
+      await httpClient.post("http://localhost:3000/posts", {
         author: name.firstName(),
         title: name.title(),
       });
@@ -160,7 +161,6 @@ export default function Album() {
 
     return <button onClick={handleOnClick}>Create post</button>;
   };
-
   return (
     <React.Fragment>
       <main>
